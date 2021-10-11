@@ -3,50 +3,51 @@ using Microsoft.AspNetCore.Mvc;
 using Registrar.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Registrar.Controllers
 {
-  public class DepartmentsController : Controller
+  public class DepartmentController : Controller
   {
     private readonly RegistrarContext _db;
 
-    public DepartmentsController(RegistrarContext db)
+    public DepartmentController(RegistrarContext db)
     {
       _db = db;
     }
 
     public ActionResult Index()
     {
-      List<Course> model = _db.Departments.ToList();
+      List<Department> model = _db.Department.ToList();
       return View(model);
     }
 
-     public ActionResult Create()
-    {
-      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
-      return View();
-    }
+    // public ActionResult Create()
+    // {
+    //   ViewBag.DepartmentId = new SelectList(_db.Department, "DepartmentId", "Name");
+    //   return View();
+    // }
 
     [HttpPost]
     public ActionResult Create(Department department)
     {
-      _db.Departments.Add(department);
+      _db.Department.Add(department);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      var thisDepartment = _db.Departments
-          .Include(department => department.JoinEntities)
+      var thisDepartment = _db.Department
+          .Include(department => Department.JoinEntities)
           .ThenInclude(join => join.Student)
           .FirstOrDefault(Department => department.DepartmentId == id);
       return View(thisCourse);
     }
     public ActionResult Edit(int id)
     {
-      Course thisDepartment = _db.Departments.FirstOrDefault(Department => Department.DepartmentId == id);
-      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");///
+      Course thisDepartment = _db.Department.FirstOrDefault(Department => Department.DepartmentId == id);
+      ViewBag.DepartmentId = new SelectList(_db.Department, "DepartmentId", "Name");///
       return View(thisDepartment);
     }
     [HttpPost]
@@ -56,13 +57,13 @@ namespace Registrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-public ActionResult AddStudent(int id)
+    public ActionResult AddStudent(int id)
     {
-      Department thisDepartment = _db.Departments.FirstOrDefault(Department => Department.DepartmentId == id);
+      Department thisDepartment = _db.Department.FirstOrDefault(Department => Department.DepartmentId == id);
       ViewBag.StudentId = new SelectList(_db.Students, "StudentId", "Name");
       return View(thisDepartment);
     }
-      [HttpPost]
+    [HttpPost]
     public ActionResult AddStudent(Department Department, int StudentId)
     {
       if (StudentId != 0)
@@ -82,17 +83,17 @@ public ActionResult AddStudent(int id)
 
       return RedirectToAction("Details", new { id = Department.DepartmentId });
     }
-public ActionResult Delete(int id)
+    public ActionResult Delete(int id)
     {
-      var thisDepartment = _db.Departments.FirstOrDefault(Department => Department.DepartmentId == id);
+      var thisDepartment = _db.Department.FirstOrDefault(Department => Department.DepartmentId == id);
       return View(thisDepartment);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisDepartment = _db.Departments.FirstOrDefault(Department => Department.DepartmentId == id);
-      _db.Departments.Remove(thisDepartment);
+      var thisDepartment = _db.Department.FirstOrDefault(Department => Department.DepartmentId == id);
+      _db.Department.Remove(thisDepartment);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

@@ -6,7 +6,7 @@ namespace Registrar.Models
   {
     public DbSet<Course> Courses { get; set; }
     public DbSet<Student> Students { get; set; }
-    public DbSet<Enrollmnent> Enrollment { get; set; }
+    public DbSet<Enrollment> Enrollment { get; set; }
     public DbSet<Department> Department { get; set; }
 
     public RegistrarContext(DbContextOptions options) : base(options) { }

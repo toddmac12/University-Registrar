@@ -11,7 +11,7 @@ namespace Registrar.Models
 
     public int StudentId { get; set; }
     public string Name { get; set; }
-    public date EnrollmentDate { get; set; }
+    public string EnrollmentDate { get; set; }
 
     public virtual ICollection<Enrollment> JoinEntities { get; }
   }

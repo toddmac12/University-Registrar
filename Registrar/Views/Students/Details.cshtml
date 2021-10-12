@@ -1,4 +1,4 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
@@ -6,30 +6,31 @@
 
 <h2>Student Details</h2>
 <hr />
-<h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<h3>Enrollment Date: @Html.DisplayFor(model => model.EnrollmentDate)</h3>
 
 @if(@Model.JoinEntities.Count == 0)
 {
-  <p>This Student does not belong to any categories</p>
+  <p>This Student does not belong to any courses</p>
 }
 else
 {
-  <h4>Categories the Student belongs to:</h4>
+  <h4>Courses the Student belongs to:</h4>
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
     <li>@join.Course.Name</li>
     @using (Html.BeginForm("DeleteCourse", "Students"))
     {
-      @Html.Hidden("joinId", @join.CourseItemId)
+      @Html.Hidden("joinId", @join.EnrollmentId)
       <input type="submit" value="Delete"/>
     }
   }
   </ul>
 }
 
-<p>@Html.ActionLink("Add a Course", "AddCourse", new { id = Model.ItemId })</p>
+<p>@Html.ActionLink("Add a Course", "AddCourse", new { id = Model.StudentId })</p>
 
 <p>@Html.ActionLink("Back to list", "Index")</p>
-<p>@Html.ActionLink("Edit Student", "Edit", new { id = Model.ItemId })</p>
-<p>@Html.ActionLink("Delete Student", "Delete", new { id = Model.ItemId })</p> *@
+<p>@Html.ActionLink("Edit Student", "Edit", new { id = Model.StudentId })</p>
+<p>@Html.ActionLink("Delete Student", "Delete", new { id = Model.StudentId })</p>

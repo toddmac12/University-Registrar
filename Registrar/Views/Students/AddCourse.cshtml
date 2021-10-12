@@ -1,4 +1,4 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
@@ -6,11 +6,11 @@
 
 <h2>Add a Course</h2>
 
-<h4>Add a Course to this student: @Html.DisplayFor(model => model.Description)</h4>
+<h4>Add a Course to this student: @Html.DisplayFor(model => model.Name)</h4>
 
 @using (Html.BeginForm())
 {
-  @Html.HiddenFor(model => model.ItemId)
+  @Html.HiddenFor(model => model.StudentId)
 
   @Html.Label("Select Course")
   @Html.DropDownList("CourseId")
@@ -18,4 +18,4 @@
   <input type="submit" value="Save" />
 }
 
-<p>@Html.ActionLink("Back to list", "Index")</p> *@
+<p>@Html.ActionLink("Back to list", "Index")</p>

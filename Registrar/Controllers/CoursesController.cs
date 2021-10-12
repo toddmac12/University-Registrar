@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Registrar.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 
@@ -22,11 +23,11 @@ namespace Registrar.Controllers
       return View(model);
     }
 
-    //   public ActionResult Create()
-    // {
-    //   ViewBag.DepartmentId = new SelectList(_db.Department, "DepartmentId", "Name");
-    //   return View();
-    // }
+      public ActionResult Create()
+    {
+      ViewBag.DepartmentId = new SelectList (_db.Department, "DepartmentId", "Name");
+      return View();
+    }
 
     [HttpPost]
     public ActionResult Create(Course course)
@@ -44,25 +45,25 @@ namespace Registrar.Controllers
         .FirstOrDefault(course => course.CourseId == id);
       return View(thisCourse);
     }
-//     public ActionResult Edit(int id)
-//     {
-//       Course thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
-//       ViewBag.DepartmentId = new SelectList(_db.Department, "DepartmentId", "Name");
-//       return View(thisCourse);
-//     }
-//     [HttpPost]
-//     public ActionResult Edit(Course Course)
-//     {
-//       _db.Entry(course).State = EntityState.Modified;
-//       _db.SaveChanges();
-//       return RedirectToAction("Index");
-//     }
-// public ActionResult AddStudent(int id)
-//     {
-//       Course thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
-//       ViewBag.StudentId = new SelectList(_db.Students, "StudentId", "Name");
-//       return View(thisCourse);
-//     }
+    public ActionResult Edit(int id)
+    {
+      Course thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      ViewBag.DepartmentId = new SelectList(_db.Department, "DepartmentId", "Name");
+      return View(thisCourse);
+    }
+    [HttpPost]
+    public ActionResult Edit(Course course)
+    {
+      _db.Entry(course).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+public ActionResult AddStudent(int id)
+    {
+      Course thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      ViewBag.StudentId = new SelectList(_db.Students, "StudentId", "Name");
+      return View(thisCourse);
+    }
       [HttpPost]
     public ActionResult AddStudent(Course course, int StudentId)
     {

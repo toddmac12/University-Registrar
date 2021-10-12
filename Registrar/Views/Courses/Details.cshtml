@@ -1,4 +1,4 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
@@ -8,7 +8,7 @@
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
-@if(@Model.JoinEntities.Count == 0)
+@if (@Model.JoinEntities.Count == 0)
 {
   <p>This Course does not contain any Students</p>
 }
@@ -16,13 +16,13 @@ else
 {
   <h4>Students the Course contains:</h4>
   <ul>
-  @foreach(var join in Model.JoinEntities)
-  {
-    <li>@join.Student.Description</li>
-  }
+      @foreach (var join in Model.JoinEntities)
+    {
+      <li>@join.Student.Name</li>
+    }
   </ul>
 }
 
-<p>@Html.ActionLink("Back to categories", "Index")</p>
+<p>@Html.ActionLink("Back to Course", "Index")</p>
 <p>@Html.ActionLink("Edit Course", "Edit", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Delete Course", "Delete", new { id = Model.CourseId })</p> *@
+<p>@Html.ActionLink("Delete Course", "Delete", new { id = Model.CourseId })</p>
